@@ -1,0 +1,22 @@
+// use prisma-8
+model CheckingAccount {
+  accountId  Int      @id @default(autoincrement())
+  cpf        String   @unique
+  name       String?
+  balance    NumericString(10,2)
+  createdAt  DateTime @default(now()) @onCreate(now())
+  updatedAt  temporal.UpdatedAt
+}
+
+model Transaction {
+  id             Int              @id @default(autoincrement()) @unique
+  idempotencyKey String           @unique
+  recipientId    Int
+  senderId       Int
+  recipient      CheckingAccount  @relation("RecipientTransactions", fields: [recipientId], references: [accountId])
+  sender         CheckingAccount  @relation("SenderTransactions", fields: [senderId], references: [accountId])
+  amount         NumericString(10, 2)
+  createdAt      DateTime         @default(now()) @onCreate(now())
+  updatedAt      temporal.UpdatedAt
+  executed       Boolean          @default(false)
+}

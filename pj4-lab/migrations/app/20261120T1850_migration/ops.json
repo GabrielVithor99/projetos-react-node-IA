@@ -1,0 +1,92 @@
+[
+  {
+    "id": "dropTable.Voucher",
+    "label": "Drop table \"Voucher\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Voucher"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Voucher\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Voucher\""
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "table \"Voucher\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "drop table \"Voucher\"",
+        "sql": "DROP TABLE \"public\".\"Voucher\""
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Voucher\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Voucher\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "table \"Voucher\""
+        }
+      }
+    ]
+  },
+  {
+    "id": "dropTable.VoucherRedemption",
+    "label": "Drop table \"VoucherRedemption\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "VoucherRedemption"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"VoucherRedemption\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"VoucherRedemption\""
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "table \"VoucherRedemption\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "drop table \"VoucherRedemption\"",
+        "sql": "DROP TABLE \"public\".\"VoucherRedemption\""
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"VoucherRedemption\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"VoucherRedemption\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "table \"VoucherRedemption\""
+        }
+      }
+    ]
+  }
+]

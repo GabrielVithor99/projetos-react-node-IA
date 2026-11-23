@@ -1,0 +1,13 @@
+model Voucher {
+  id      String  @id @default(uuid())
+  code    String  @unique
+  balance Decimal @db.Decimal(10, 2) // Precisão exata para valores monetários/créditos
+}
+
+model VoucherRedemption {
+  id             String   @id @default(uuid())
+  idempotencyKey String   @unique // O banco impede gravar a mesma chave duas vezes
+  voucherCode    String
+  amount         Decimal  @db.Decimal(10, 2)
+  createdAt      DateTime @default(now())
+}
